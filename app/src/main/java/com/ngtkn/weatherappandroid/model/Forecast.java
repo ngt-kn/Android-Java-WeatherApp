@@ -1,6 +1,8 @@
 package com.ngtkn.weatherappandroid.model;
 
-public class Forecast {
+import java.io.Serializable;
+
+public class Forecast implements Serializable {
 
     // location
     private String city;

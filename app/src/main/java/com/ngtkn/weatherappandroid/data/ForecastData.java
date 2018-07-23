@@ -25,8 +25,6 @@ public class ForecastData {
     String urlLeft = "https://query.yahooapis.com/v1/public/yql?q=select*from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22";
     String urlRight = "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 
-    //String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-
     public void getforecast( final ForecastListAsyncResponse callback, String locationText) {
 
         String url = urlLeft + locationText + urlRight;
@@ -34,8 +32,8 @@ public class ForecastData {
             new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         try {
+                            forecastArrayList.clear();
                             JSONObject query = response.getJSONObject("query");
                             JSONObject results = query.getJSONObject("results");
                             JSONObject channel = results.getJSONObject("channel");
@@ -43,22 +41,17 @@ public class ForecastData {
                             // Location object
                             JSONObject location = channel.getJSONObject("location");
 
-
-
                             // Item object
                             JSONObject item = channel.getJSONObject("item");
 
                             // Condition object
                             JSONObject conditionObject = item.getJSONObject("condition");
-//                            forecast.setDate(conditionObject.getString("date"));
-//                            forecast.setCurrentTemperature(conditionObject.getString("temp"));
-//                            forecast.setCurrentWeatherDescription(conditionObject.getString("text"));
 
                             // Forecast json array
-                            JSONArray forecastArray = item.getJSONArray("forecast");
+                            JSONArray forecastArray = new JSONArray();
+                            forecastArray = item.getJSONArray("forecast");
                             for (int i = 0; i < forecastArray.length(); i++) {
                                 JSONObject forecastObject = forecastArray.getJSONObject(i);
-
                                 Forecast forecast  = new Forecast();
 
                                 forecast.setForecastDate(forecastObject.getString("date"));
@@ -72,6 +65,8 @@ public class ForecastData {
                                 forecast.setRegion(location.getString("region"));
                                 forecast.setDate(conditionObject.getString("date"));
 
+                                forecast.setDescriptionHTML(item.getString("description"));
+
                                 forecastArrayList.add(forecast);
                             }
                         } catch (JSONException e) {
@@ -83,12 +78,9 @@ public class ForecastData {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 });
 
         AppController.getmInstance().addToRequestQueue(jsonObjectRequest);
     }
-
-
 }

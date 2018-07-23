@@ -23,22 +23,25 @@ public class ForecastFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    /**
+     * Inflate the fragment
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View forecastView = inflater.inflate(R.layout.fragment_forecast, container, false);
         ImageView forecastIcon = forecastView.findViewById(R.id.forecastIconId);
-        //TextView forecastTemp = forecastView.findViewById(R.id.forecastTemp);
         TextView forecastDate = forecastView.findViewById(R.id.forecastDateText);
         TextView forecastHigh = forecastView.findViewById(R.id.forecastHighText);
         TextView forecastLow = forecastView.findViewById(R.id.forecastLowText);
         TextView forecastDescription = forecastView.findViewById(R.id.forecastDescriptionText);
 
         Forecast forecast = (Forecast) getArguments().getSerializable("forecast");
-
-        //forecastTemp.setText(forecast.getCurrentTemperature());
         forecastDate.setText(forecast.getForecastDate());
         forecastHigh.setText(forecast.getForecastHighTemp());
         forecastLow.setText(forecast.getForecastLowTemp());

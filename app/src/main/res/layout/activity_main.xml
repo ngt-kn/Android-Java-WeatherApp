@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/sunnybg"
+    android:background="@color/grey_100"
     android:padding="25dp">
 
     <EditText
@@ -27,16 +27,18 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation">
+        app:layout_constraintTop_toBottomOf="@+id/editTextLocation"
+        app:cardBackgroundColor="@android:color/transparent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -54,7 +56,8 @@
                 android:text="TextView"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/current_date_text"
                 app:layout_constraintStart_toEndOf="@+id/weather_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,15 +77,30 @@
             <TextView
                 android:id="@+id/current_temp_text"
                 android:layout_width="wrap_content"
-                android:layout_height="73dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:padding="10dp"
+                android:padding="0dp"
                 android:text="20F"
                 android:textSize="40sp"
-                app:layout_constraintBottom_toBottomOf="@+id/location_text_view"
+                app:layout_constraintBottom_toTopOf="@+id/current_date_text"
                 app:layout_constraintStart_toEndOf="@+id/location_text_view"
                 app:layout_constraintTop_toTopOf="@+id/location_text_view" />
+
+            <TextView
+                android:id="@+id/current_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Current date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
@@ -90,15 +108,10 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        android:background="@color/amber_600">
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
     </android.support.v4.view.ViewPager>
 

@@ -30,7 +30,7 @@ public class ForecastFragment extends Fragment {
 
         View forecastView = inflater.inflate(R.layout.fragment_forecast, container, false);
         ImageView forecastIcon = forecastView.findViewById(R.id.forecastIconId);
-        TextView forecastTemp = forecastView.findViewById(R.id.forecastTemp);
+        //TextView forecastTemp = forecastView.findViewById(R.id.forecastTemp);
         TextView forecastDate = forecastView.findViewById(R.id.forecastDateText);
         TextView forecastHigh = forecastView.findViewById(R.id.forecastHighText);
         TextView forecastLow = forecastView.findViewById(R.id.forecastLowText);
@@ -38,10 +38,10 @@ public class ForecastFragment extends Fragment {
 
         Forecast forecast = (Forecast) getArguments().getSerializable("forecast");
 
-        forecastTemp.setText(forecast.getCurrentTemperature());
+        //forecastTemp.setText(forecast.getCurrentTemperature());
         forecastDate.setText(forecast.getForecastDate());
         forecastHigh.setText(forecast.getForecastHighTemp());
-        //forecastLow.setText(forecast.getForecastLowTemp());
+        forecastLow.setText(forecast.getForecastLowTemp());
         forecastDescription.setText(forecast.getCurrentWeatherDescription());
 
         // Inflate the layout for this fragment

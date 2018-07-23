@@ -22,11 +22,14 @@ import static com.android.volley.VolleyLog.TAG;
  */
 public class ForecastData {
     ArrayList<Forecast> forecastArrayList = new ArrayList<>();
+    String urlLeft = "https://query.yahooapis.com/v1/public/yql?q=select*from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22";
+    String urlRight = "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 
-    String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    //String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
-    public void getforecast( final ForecastListAsyncResponse callback) {
+    public void getforecast( final ForecastListAsyncResponse callback, String locationText) {
 
+        String url = urlLeft + locationText + urlRight;
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
             new Response.Listener<JSONObject>() {
                     @Override
@@ -61,7 +64,13 @@ public class ForecastData {
                                 forecast.setForecastDate(forecastObject.getString("date"));
                                 forecast.setForecastDay(forecastObject.getString("day"));
                                 forecast.setForecastHighTemp(forecastObject.getString("high"));
+                                forecast.setForecastLowTemp(forecastObject.getString("low"));
                                 forecast.setCurrentWeatherDescription(forecastObject.getString("text"));
+
+                                forecast.setCity(location.getString("city"));
+                                forecast.setCurrentTemperature(conditionObject.getString("temp"));
+                                forecast.setRegion(location.getString("region"));
+                                forecast.setDate(conditionObject.getString("date"));
 
                                 forecastArrayList.add(forecast);
                             }
